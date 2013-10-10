@@ -2,36 +2,31 @@
 var App = Backbone.Model.extend({
 
 // library: Songs(song)
-
 initialize: function(params){
     this.set('currentSong', new Song());
     this.set('songQueue', new SongQueue());
 
     params.library.on('play', function(song){
-      this.set('currentSong', song);
+      if(this.get('songQueue') && this.get('songQueue').models.length > 0){
+        this.set('currentSong', this.get('songQueue').models[0]);
+      }
     }, this);
 
     params.library.on('enqueue', function(song){
       if ((this.get('songQueue').length === 0) && (!(this.get('currentSong').attributes['artist']))) {
         this.set('currentSong', song);
       } else {
-        var x = this.get('songQueue').clone();
-        x.add(song);
-        this.set('songQueue',  x);
+        var cloneQueue = this.get('songQueue').clone();
+        cloneQueue.add(song);
+        this.set('songQueue',  cloneQueue);
       }
     }, this);
 
+    // set this to trigger whenever current song changes
     params.library.on('dequeue', function(song){
-      // console.log('before', this.get('songQueue'));
-      var x = this.get('songQueue').clone();
-      x.remove(song);
-
-      this.set('songQueue',  x);
-      // console.log('after',this.get('songQueue'));
+      var cloneQueue = this.get('songQueue').clone();
+      cloneQueue.remove(song);
+      this.set('songQueue', cloneQueue);
     }, this);
   }
-
-
-
-
 });

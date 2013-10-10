@@ -1,7 +1,6 @@
 // SongQueueView.js - Defines a backbone view class for the song queue.
 var SongQueueView = Backbone.View.extend({
 
-
     // collection: Songs(song)
 
   tagName: "table",
@@ -9,14 +8,8 @@ var SongQueueView = Backbone.View.extend({
   updateQueue: function(queue){
     console.log('sqv update',queue);
     this.collection = queue;
-
-    // console.log('m',this.collection);
     this.render();
   },
-
-  // dequeue: function(song){
-  //   this.collection.remove(song);
-  // },
 
   render: function(){
     // to preserve event handlers on child nodes, we must call .detach() on them before overwriting with .html()
