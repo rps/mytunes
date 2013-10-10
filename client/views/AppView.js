@@ -26,9 +26,9 @@ var AppView = Backbone.View.extend({
           storeArray.push(parseInt(queue[i].cid.slice(1),10)-1);
         }
         localStorage.queueArray = JSON.stringify(storeArray);
-        // return "Are you sure you want to close the window?"; 
       }
     };
+
     if(typeof(Storage) !== 'undefined' && localStorage.queueArray){
       storage = JSON.parse(localStorage.queueArray);
       for (var j = 0; j<storage.length; j++){
