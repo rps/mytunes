@@ -10,10 +10,6 @@ var PlayerView = Backbone.View.extend({
     this.$el.bind("ended", function(){
       that.model.play();
     });
-
-    this.$el.on('click', function(){
-      that.model.play();
-    });
   },
 
   setSong: function(song){

@@ -20,12 +20,11 @@
     <script src="views/AppView.js"></script>
     <script src="views/SongQueueView.js"></script>
     <script src="views/SongQueueEntryView.js"></script>
-
+    <style>body {font-family: helvetica, tahoma, sans-serif; font-size: 13px;}</style>
     <script>
       $(function(){
         // set up model objects
         var library = new Songs(songData);
-        // var queue = new SongQueue();
 
         // adds a few methods to our library of songs
         var app = new App({library: library});
