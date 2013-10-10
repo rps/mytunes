@@ -1,13 +1,6 @@
 // SongQueueView.js - Defines a backbone view class for the song queue.
 var SongQueueView = Backbone.View.extend({
 
-  // initialize: function() {
-  // },
-
-  // render: function() {
-  //   return this.$el;
-  // }
-
 
     // collection: Songs(song)
 
@@ -17,10 +10,13 @@ var SongQueueView = Backbone.View.extend({
     console.log('sqv update',queue);
     this.collection = queue;
 
-// queue.models[N].attributes;
-    console.log('m',this.collection);
+    // console.log('m',this.collection);
     this.render();
   },
+
+  // dequeue: function(song){
+  //   this.collection.remove(song);
+  // },
 
   render: function(){
     // to preserve event handlers on child nodes, we must call .detach() on them before overwriting with .html()
@@ -30,7 +26,7 @@ var SongQueueView = Backbone.View.extend({
 
     return this.$el.html('<th>Queue</th>').append(
       this.collection.map(function(song){
-        console.log('song1',song)
+        console.log('song1',song);
         return new SongQueueEntryView({model: song}).render();
       })
     );

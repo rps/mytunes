@@ -12,13 +12,22 @@ initialize: function(params){
     }, this);
 
     params.library.on('enqueue', function(song){
-      console.log('before', this.get('songQueue'));
+      if ((this.get('songQueue').length === 0) && (!(this.get('currentSong').attributes['artist']))) {
+        this.set('currentSong', song);
+      } else {
+        var x = this.get('songQueue').clone();
+        x.add(song);
+        this.set('songQueue',  x);
+      }
+    }, this);
+
+    params.library.on('dequeue', function(song){
+      // console.log('before', this.get('songQueue'));
       var x = this.get('songQueue').clone();
-      x.add(song);
+      x.remove(song);
 
       this.set('songQueue',  x);
-      console.log('after',this.get('songQueue'));
-      // this.trigger('change:songQueue');
+      // console.log('after',this.get('songQueue'));
     }, this);
   }
 
