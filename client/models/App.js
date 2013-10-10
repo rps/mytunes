@@ -22,7 +22,6 @@ initialize: function(params){
       }
     }, this);
 
-    // set this to trigger whenever current song changes
     params.library.on('dequeue', function(song){
       var cloneQueue = this.get('songQueue').clone();
       cloneQueue.remove(song);

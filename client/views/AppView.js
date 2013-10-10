@@ -15,6 +15,26 @@ var AppView = Backbone.View.extend({
     this.model.on('change:songQueue', function(model){
       this.songQueueView.updateQueue(model.get('songQueue'));
     }, this);
+
+    var that = this;
+
+    window.onbeforeunload = function(e) {
+      if (typeof(Storage)!== 'undefined'){
+        var queue = that.model.get('songQueue').models;
+        var storeArray = [];
+        for (var i = 0; i< queue.length; i++){
+          storeArray.push(parseInt(queue[i].cid.slice(1),10)-1);
+        }
+        localStorage.queueArray = JSON.stringify(storeArray);
+        // return "Are you sure you want to close the window?"; 
+      }
+    };
+    if(typeof(Storage) !== 'undefined' && localStorage.queueArray){
+      storage = JSON.parse(localStorage.queueArray);
+      for (var j = 0; j<storage.length; j++){
+        this.model.get('library').models[storage[j]].enqueue();
+      }
+    }
   },
 
   render: function(){
